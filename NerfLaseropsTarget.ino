@@ -220,19 +220,9 @@ void handleGameplay() {
     }
     // Use same delay as your original utility
     delay(HOLD_DELAY);
-    // Clear display and re-enable IR (like your utility)
-    strip.clear();
-    strip.show();
     myReceiver.enableIRIn();
   }
-  
-  // Update score display AFTER IR check (less frequently)
-  static unsigned long lastDisplayUpdate = 0;
-  if(millis() - lastDisplayUpdate > 100) { // Update display every 100ms instead of every loop
-    updateScoreDisplay();
-    lastDisplayUpdate = millis();
-  }
-  
+   
   // Check for game over
   if(redScore >= totalHitpoints || redScore <= 0) {
     currentState = GAME_OVER;
@@ -322,7 +312,7 @@ void processHit(bool isRedHit) {
       delay(ANIMATION_DELAY);
     }
   }
-  
+  updateScoreDisplay();
   // Same final delay as your utility
   delay(HOLD_DELAY);
   
